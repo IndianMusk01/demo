@@ -2,6 +2,8 @@ package com.jwt.example.demo.Controllers;
 
 
 import com.jwt.example.demo.Helpers.JwtHelper;
+import com.jwt.example.demo.RequestDto.JwtRequest;
+import com.jwt.example.demo.ResponseDto.JwtResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,20 +33,17 @@ public class AuthController {
     private Logger logger = LoggerFactory.getLogger(AuthController.class);
 
 
-//    @PostMapping("/login")
-//    public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest request) {
-//
-//        this.doAuthenticate(request.getEmail(), request.getPassword());
-//
-//
-//        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
-//        String token = this.helper.generateToken(userDetails);
-//
-//        JwtResponse response = JwtResponse.builder()
-//                .jwtToken(token)
-//                .username(userDetails.getUsername()).build();
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
+    @PostMapping("/login")
+    public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest request) {
+
+        this.doAuthenticate(request.getEmail(), request.getPassword());
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
+        String token = this.helper.generateToken(userDetails);
+
+        JwtResponse response = JwtResponse.builder().jwtToken(token).username(userDetails.getUsername()).build();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
     private void doAuthenticate(String email, String password) {
 
