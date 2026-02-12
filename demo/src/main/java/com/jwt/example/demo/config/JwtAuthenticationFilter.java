@@ -1,4 +1,4 @@
-package com.jwt.example.demo;
+package com.jwt.example.demo.config;
 
 import com.jwt.example.demo.Helpers.JwtHelper;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
     protected  void doFilterInternal(HttpServletRequest request , HttpServletResponse response , FilterChain filterChain ) throws ServletException , IOException{
-        String requestHeader = request.getHeader("Authrization");
+        String requestHeader = request.getHeader("Authorization");
         logger.info(" Header :{}", requestHeader);
         String username = null;
         String token = null;
